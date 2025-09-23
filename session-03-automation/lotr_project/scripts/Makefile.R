@@ -9,3 +9,6 @@ source("./session-03-automation/lotr_project/scripts/00-packages.R")
 source("./session-03-automation/lotr_project/scripts/01-download-data.R")
 source("./session-03-automation/lotr_project/scripts/02-process-data.R")
 source("./session-03-automation/lotr_project/scripts/03-plot.R")
+source("./session-03-automation/lotr_project/scripts/04-dummy-data.R")
+
+file.edit("./session-03-automation/lotr_project/scripts/01-download-data.R")
