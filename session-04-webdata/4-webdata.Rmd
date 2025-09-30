@@ -112,6 +112,9 @@ stringr::str_view(x, "a")
 words <- c("running", "jumps", "swimming", "biking", "skates", "hiking", "fishing", "reading")
 
 # Your code here
+stringr::str_detect(words, "ing")
+stringr::str_replace_all(words, "ing", "er")
+
 ```
 :::
 
@@ -119,7 +122,8 @@ words <- c("running", "jumps", "swimming", "biking", "skates", "hiking", "fishin
 **Excercise 2**: Can you find how many words in the inbuilt `stringr::words` vector contain the sequence "ise"?
 ```{r, echo=FALSE}
 # Your code here
-
+stringr::words
+stringr::str_detect(stringr::words, "ise") |> sum()
 # You can access the words vector with: stringr::words
 ```
 :::
@@ -247,6 +251,8 @@ unlist(str_extract_all(example.obj, fixed(".")))
 **Exercise 1**: Can you find all the words in `stringr::words` that end in "ing" or "ise"?
 ```{r}
 # Your code here
+stringr::words
+stringr::str_view(stringr::words, "ing$|ise$")
 ```
 :::
 
@@ -255,6 +261,7 @@ unlist(str_extract_all(example.obj, fixed(".")))
 
 ```{r}
 # Your code here
+str_view(example.obj, ".\\.")
 ```
 :::
 
@@ -315,6 +322,9 @@ unlist(str_extract_all(example.obj, "[12-]"))
 **Exercise 3**: Can you make a regex that matches only numbers followed by a dot in `example.obj`? How about letters followed by a dot?
 ```{r}
 # Your code here
+print(example.obj)
+str_extract_all(example.obj, "[0-9]\\.")
+str_extract_all(example.obj, "[[:alpha:]]\\.")
 ```
 :::
 
@@ -322,6 +332,8 @@ unlist(str_extract_all(example.obj, "[12-]"))
 **Exercise 4**: Can you find all words in `stringr::words` that end with "ed" but not with "eed"?
 ```{r}
 # Your code here
+stringr::words
+str_detect(stringr::words, "[^e]ed$")
 ```
 :::
 
@@ -357,6 +369,8 @@ str_extract(example.obj, "A.+?sentence")
 
 ```{r}
 # Your code here
+stringr::words
+str_view(stringr::words, '^[:alpha:]{2}y$')
 ```
 :::
 :::alert-info
@@ -365,6 +379,7 @@ str_extract(example.obj, "A.+?sentence")
 Hint: `\\b` can be use to match a word boundary, i.e. the start or end of a word.
 ```{r}
 # Your code here
+str_view(example.obj, )
 ```
 :::
 
