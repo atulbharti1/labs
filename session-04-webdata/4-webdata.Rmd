@@ -121,6 +121,7 @@ stringr::str_replace_all(words, "ing", "er")
 **Exercise 2**: Can you find how many words in the inbuilt `stringr::words` vector contain the sequence "ise"?
 ```{r, echo=FALSE}
 # Your code here
+stringr::str_detect(stringr::words, "ise") |> sum()
 
 # You can access the words vector with: stringr::words
 ```
@@ -204,6 +205,7 @@ str_extract(example.obj,
 
 ```{r}
 str_extract(example.obj, "mall sent")
+example.obj
 ```
 
 ## Meta-characters
@@ -219,6 +221,7 @@ str_extract(example.obj, "sm.ll")
 ### Anchors `r emo::ji('anchor')`
 Next to character classes and quantifiers, *anchors* match the start `^` or end `$` of a string.
 ```{r}
+
 str_extract(example.obj, "^1")
 str_extract(example.obj, "^2")
 ```
@@ -248,7 +251,7 @@ unlist(str_extract_all(example.obj, fixed(".")))
 :::alert-info
 **Exercise 1**: Can you find all the words in `stringr::words` that end in "ing" or "ise"?
 ```{r}
-# Your code here
+str_view(stringr::words, "ing$|ise$") #the character "|" is working as an "or" operator here. character "$" seeks those end letter in each word.
 ```
 :::
 
@@ -256,7 +259,7 @@ unlist(str_extract_all(example.obj, fixed(".")))
 **Exercise 2**: Can you find every letter or number followed by a dot in `example.obj`?
 
 ```{r}
-# Your code here
+str_view(example.obj, ".\\.")
 ```
 :::
 
@@ -316,14 +319,16 @@ unlist(str_extract_all(example.obj, "[12-]"))
 :::alert-info
 **Exercise 3**: Can you make a regex that matches only numbers followed by a dot in `example.obj`? How about letters followed by a dot?
 ```{r}
-# Your code here
+print(example.obj)
+unlist(str_extract_all(example.obj, "[[:digit:]]\\."))
+
 ```
 :::
 
 :::alert-info
 **Exercise 4**: Can you find all words in `stringr::words` that end with "ed" but not with "eed"?
 ```{r}
-# Your code here
+unlist(str_extract_all(stringr::words, "[^e]ed$"))
 ```
 :::
 
@@ -358,7 +363,8 @@ str_extract(example.obj, "A.+?sentence")
 **Exercise 5** How many words are there in `stringr::words` that end with a "y" and are exactly 3 characters long?
 
 ```{r}
-# Your code here
+str_detect(stringr::words, '^[:alpha:]{2}y$') |> sum()
+
 ```
 :::
 :::alert-info
@@ -366,7 +372,8 @@ str_extract(example.obj, "A.+?sentence")
 
 Hint: `\\b` can be use to match a word boundary, i.e. the start or end of a word.
 ```{r}
-# Your code here
+print(example.obj)
+str_view(example.obj, "\\b[[:alpha:]]{1,5}\\b")
 ```
 :::
 
@@ -426,6 +433,8 @@ str_view(
 
 ```{r}
 emails <- c('456123@students.hertie-school.org', 'h.simpson@students.hertie-school.org')
+str_view(emails, "[\\w.]+@students\\.hertie-school\\.org" )
+str_view(emails, '(^\\d{6}|^\\w\\.\\w{1,})@students\\.hertie-school\\.org')
 ```
 
 ---
@@ -434,6 +443,8 @@ emails <- c('456123@students.hertie-school.org', 'h.simpson@students.hertie-scho
 
 ```{r}
 ex_string <- "555-1239Moe Szyslak(636) 555-0113Burns, C. Montgomery555-6542Rev. Timothy Lovejoy555 8904Ned Flanders636-555-3226Simpson, Homer5553642Dr. Julius Hibbert"
+str_view(ex_string, "[[:alpha:].,]{2,}")
+str_view(ex_string, "\\(?(\\d{3})?\\)?(-| )?\\d{3}(-| )?\\d{4}")
 ```
 
 ---
@@ -442,6 +453,8 @@ ex_string <- "555-1239Moe Szyslak(636) 555-0113Burns, C. Montgomery555-6542Rev. 
 
 ```{r}
 secret <- "clcopCow1zmstc0d87wnkig7OvdicpNuggvhryn92Gjuwczi8hqrfpRxs5Aj5dwpn0TanwoUwisdij7Lj8kpf03AT5Idr3coc0bt7yczjatOaootj55t3Nj3ne6c4Sfek.r1w1YwwojigOd6vrfUrbz2.2bkSnbhzgv4O9i05zLcropwVgnbEqoD65fa1otf.b7wIm24k6t3s9zqe5fy89n6Td5t9kc4f905gmc4gxo5nhk!gr"
+solved <- unlist(str_extract_all(secret, "[[:upper:][:punct:]]"))
+str_c(solved, collapse = "")
 ```
 
 

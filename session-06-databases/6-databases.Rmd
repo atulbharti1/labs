@@ -144,6 +144,17 @@ dplyr::left_join(
 ) |>
   dplyr::select(dplyr::contains("year"), month, day, dep_time, arr_time, carrier, flight, tailnum, type, model) |>
   head(3)
+
+names(flights) # to check the variable names
+
+joined_data <- dplyr::left_join(
+  flights,
+  planes |> dplyr::rename(year_built = year),
+  by = "tailnum"
+) # creating a new DF which has the merged df of flights and planes
+
+setdiff(names(joined_data), names(flights)) #checking in the joined_data that which variables have come from the the df:planes
+setdiff(names(flights), names(planes))
 ```
 
 Make sure you know what "year.x" and "year.y" are. Again, it pays to be specific.
@@ -162,7 +173,9 @@ You need to identify flights operated by planes that **aren't in the registratio
 **Your task:** 
 
 a) Find all flights where the plane's `tailnum` doesn't appear in the `planes` registry. How many flights were operated by unregistered aircraft?
+```{r}
 
+```
 b) Which airline has the most flights with unregistered planes? 
 
 *Hint: Think about which type of join keeps rows from the first table that DON'T have a match in the second table.*

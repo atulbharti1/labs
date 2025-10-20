@@ -46,7 +46,7 @@ artists <- spotify_table |>
   mutate(artist_s = str_trim(artist_s)) |> #trim unnecessary whitespaces
   group_by(artist_s) |>
   summarise(songs = n(),
-            total_streams_billions = sum(streams_billions)) 
+            total_streams_billions = sum(streams_billions))
 
 # desired output for b
 artists |> arrange(desc(songs))
