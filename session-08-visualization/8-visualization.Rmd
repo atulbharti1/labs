@@ -206,7 +206,14 @@ ggplot(penguins, aes(x = flipper_length_mm, y = body_mass_g)) +
 ```
 
 ```{r}
-# YOUR CODE HERE
+advanced_scatter <- ggplot(penguins, aes(x = flipper_length_mm, y = body_mass_g, color = species)) +
+  geom_point() +
+  labs(title = "Advanced plot",
+       x = "Flipper Length",
+       y = " Body Mass (g)",
+       color = "Species") +
+  theme_bw() +
+  theme(legend.position = "bottom")
 ```
 
 
@@ -330,7 +337,9 @@ Create a histogram showing the distribution of penguin body mass using the `peng
 1. Experiment with different geoms by replacing geom_histogram() with options like geom_density(), geom_bar(), or others.
 
 ```{r}
-# YOUR CODE HERE
+ggplot(penguins, aes(x = body_mass_g, y = species)) +
+  geom_violin(fill = "#FF6666") +
+  theme_minimal()
 
 ```
 
@@ -670,7 +679,13 @@ ggplot(subset(diff07, continent == "Europe" & year == 2007),
 Create a scatter plot to explore the relationship between `flipper_length_mm` and `body_mass_g`. Then, color by a grouping variable (of your choice) and add linear trend lines.
 
 ```{r}
-# YOUR CODE HERE
+# Have to create a scatter plot
+ggplot(penguins, aes(x = flipper_length_mm, y = body_mass_g, color = island)) +
+  geom_point(alpha = 0.6, size = 1.2) +
+  geom_smooth(method = "lm", se = TRUE) +
+  labs(x = "Flipper length (mm)", y = "Body mass (g)", color = "Island") +
+  theme_minimal()
+  
 ```
 
 ---
