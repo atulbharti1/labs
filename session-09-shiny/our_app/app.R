@@ -19,7 +19,7 @@ all_movies <- dplyr::inner_join(omdb, tomatoes, by = "ID") %>%
   dplyr::select(ID, imdbID, Title, Year, Rating_m = Rating.x, Runtime, Released,
                 Director, Writer, imdbRating, imdbVotes, Language, Country, Oscars,
                 Rating = Rating.y, Meter, Reviews, Fresh, Rotten, userMeter, userRating, userReviews,
-                BoxOffice, Production, Cast)
+                BoxOffice, Production, Cast, Genre)
 
 # Variables that can be put on the x and y axes
 axis_vars <- c(
@@ -160,6 +160,7 @@ server <- function(input, output, session) {
   
   # A reactive expression with the ggplot2 plot
   vis <- reactive({
+    
     xvar_name <- names(axis_vars)[axis_vars == input$xvar]
     yvar_name <- names(axis_vars)[axis_vars == input$yvar]
     
@@ -173,6 +174,7 @@ server <- function(input, output, session) {
         y = input$yvar,
         fill = "has_oscar",
         colour = "has_oscar",
+        size = "BoxOffice",     #Solution to second question
         text = "paste0(
         '<b>', Title, '</b><br>',
         'Year: ', Year, '<br>',
@@ -181,11 +183,13 @@ server <- function(input, output, session) {
       )
     ) +
       geom_point(shape = 21, alpha = 0.7) +
+      scale_size(range = c(1, 10), name = "Box Office", guide = "none") +  #solution to excercise 2
       scale_fill_manual(values = c("Yes" = "orange", "No" = "gray"),name = "Won an Oscar") +
       scale_color_manual(values = c("Yes" = "orange", "No" = "gray"),guide = "none") +
       labs(
         x = xvar_name,
-        y = yvar_name
+        y = yvar_name,
+        title = paste(xvar_name, "vs", yvar_name) #dynamic title
       ) +
       theme_minimal()
     
